@@ -1,0 +1,687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbFinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblFirstLevel">
+          <Key>
+            <PropertyRef Name="firstLevelId" />
+          </Key>
+          <Property Name="firstLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstLevelAccount" Type="nvarchar" MaxLength="250" />
+          <Property Name="firstLevelDesc" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblFourthLevelAccount">
+          <Key>
+            <PropertyRef Name="accountId" />
+          </Key>
+          <Property Name="accountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accountCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="accountNo" Type="int" />
+          <Property Name="accountTitle" Type="nvarchar" MaxLength="250" />
+          <Property Name="thirdLevelId" Type="int" Nullable="false" />
+          <Property Name="mobileNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="cityId" Type="int" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="taxPercent" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="chequeNoStart" Type="int" />
+          <Property Name="chequeNoEnd" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSecondLevel">
+          <Key>
+            <PropertyRef Name="secondLevelId" />
+          </Key>
+          <Property Name="secondLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="secondLevelAccount" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="firstLevelId" Type="int" Nullable="false" />
+          <Property Name="secondLevelDesc" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblThirdLevel">
+          <Key>
+            <PropertyRef Name="thirdLevelId" />
+          </Key>
+          <Property Name="thirdLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="thirdLevelAccount" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="secondLevelId" Type="int" Nullable="false" />
+          <Property Name="thirdLevelDesc" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblVoucher">
+          <Key>
+            <PropertyRef Name="voucherId" />
+          </Key>
+          <Property Name="voucherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voucherNo" Type="int" />
+          <Property Name="voucherCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="voucherDate" Type="datetime" />
+          <Property Name="voucherType" Type="nvarchar" MaxLength="50" />
+          <Property Name="paymentMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="userId" Type="int" />
+          <Property Name="dateAdded" Type="datetime" />
+          <Property Name="userIdUpdate" Type="int" />
+          <Property Name="dateUpdated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblVoucherDetail">
+          <Key>
+            <PropertyRef Name="voucherDetailId" />
+          </Key>
+          <Property Name="voucherDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voucherId" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="debitAmount" Type="numeric" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="creditAmount" Type="numeric" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="chequeNo" Type="int" />
+          <Property Name="chequeDate" Type="datetime" />
+          <Property Name="accountId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblVoucherDetailTemp">
+          <Key>
+            <PropertyRef Name="voucherDetailId" />
+          </Key>
+          <Property Name="voucherDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voucherId" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="debitAmount" Type="numeric" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="creditAmount" Type="numeric" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="chequeNo" Type="int" />
+          <Property Name="chequeDate" Type="datetime" />
+          <Property Name="accountId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblVoucherTemp">
+          <Key>
+            <PropertyRef Name="voucherId" />
+          </Key>
+          <Property Name="voucherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voucherNo" Type="int" />
+          <Property Name="voucherCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="voucherDate" Type="datetime" />
+          <Property Name="voucherType" Type="nvarchar" MaxLength="50" />
+          <Property Name="paymentMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="userId" Type="int" />
+          <Property Name="dateAdded" Type="datetime" />
+          <Property Name="userIdUpdate" Type="int" />
+          <Property Name="dateUpdated" Type="datetime" />
+          <Property Name="isApprove" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbFinance.dbo.vSecondLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vSecondLevel">
+          <Key>
+            <PropertyRef Name="firstLevelId" />
+            <PropertyRef Name="secondLevelId" />
+            <PropertyRef Name="secondLevelAccount" />
+          </Key>
+          <Property Name="firstLevelId" Type="int" Nullable="false" />
+          <Property Name="firstLevelAccount" Type="nvarchar" MaxLength="250" />
+          <Property Name="secondLevelId" Type="int" Nullable="false" />
+          <Property Name="secondLevelAccount" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="secondLevelDesc" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_tblFourthLevelAccount_tblThirdLevel">
+          <End Role="tblThirdLevel" Type="Self.tblThirdLevel" Multiplicity="1" />
+          <End Role="tblFourthLevelAccount" Type="Self.tblFourthLevelAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblThirdLevel">
+              <PropertyRef Name="thirdLevelId" />
+            </Principal>
+            <Dependent Role="tblFourthLevelAccount">
+              <PropertyRef Name="thirdLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSecondLevel_tblFirstLevel">
+          <End Role="tblFirstLevel" Type="Self.tblFirstLevel" Multiplicity="1" />
+          <End Role="tblSecondLevel" Type="Self.tblSecondLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFirstLevel">
+              <PropertyRef Name="firstLevelId" />
+            </Principal>
+            <Dependent Role="tblSecondLevel">
+              <PropertyRef Name="firstLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblThirdLevel_tblSecondLevel">
+          <End Role="tblSecondLevel" Type="Self.tblSecondLevel" Multiplicity="1" />
+          <End Role="tblThirdLevel" Type="Self.tblThirdLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSecondLevel">
+              <PropertyRef Name="secondLevelId" />
+            </Principal>
+            <Dependent Role="tblThirdLevel">
+              <PropertyRef Name="secondLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetail_tblFourthLevelAccount">
+          <End Role="tblVoucher" Type="Self.tblVoucher" Multiplicity="1" />
+          <End Role="tblVoucherDetail" Type="Self.tblVoucherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVoucher">
+              <PropertyRef Name="voucherId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetail">
+              <PropertyRef Name="voucherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetail_tblFourthLevelAccount1">
+          <End Role="tblFourthLevelAccount" Type="Self.tblFourthLevelAccount" Multiplicity="1" />
+          <End Role="tblVoucherDetail" Type="Self.tblVoucherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFourthLevelAccount">
+              <PropertyRef Name="accountId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetail">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetailTemp_tblFourthLevelAccount">
+          <End Role="tblFourthLevelAccount" Type="Self.tblFourthLevelAccount" Multiplicity="1" />
+          <End Role="tblVoucherDetailTemp" Type="Self.tblVoucherDetailTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFourthLevelAccount">
+              <PropertyRef Name="accountId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetailTemp">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetailTemp_tblVoucherTemp">
+          <End Role="tblVoucherTemp" Type="Self.tblVoucherTemp" Multiplicity="1" />
+          <End Role="tblVoucherDetailTemp" Type="Self.tblVoucherDetailTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVoucherTemp">
+              <PropertyRef Name="voucherId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetailTemp">
+              <PropertyRef Name="voucherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbFinanceModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFirstLevel" EntityType="Self.tblFirstLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFourthLevelAccount" EntityType="Self.tblFourthLevelAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSecondLevel" EntityType="Self.tblSecondLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblThirdLevel" EntityType="Self.tblThirdLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVoucher" EntityType="Self.tblVoucher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVoucherDetail" EntityType="Self.tblVoucherDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVoucherDetailTemp" EntityType="Self.tblVoucherDetailTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVoucherTemp" EntityType="Self.tblVoucherTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vSecondLevel" EntityType="Self.vSecondLevel" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vSecondLevel].[firstLevelId] AS [firstLevelId], 
+    [vSecondLevel].[firstLevelAccount] AS [firstLevelAccount], 
+    [vSecondLevel].[secondLevelId] AS [secondLevelId], 
+    [vSecondLevel].[secondLevelAccount] AS [secondLevelAccount], 
+    [vSecondLevel].[secondLevelDesc] AS [secondLevelDesc]
+    FROM [dbo].[vSecondLevel] AS [vSecondLevel]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblFourthLevelAccount_tblThirdLevel" Association="Self.FK_tblFourthLevelAccount_tblThirdLevel">
+            <End Role="tblThirdLevel" EntitySet="tblThirdLevel" />
+            <End Role="tblFourthLevelAccount" EntitySet="tblFourthLevelAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSecondLevel_tblFirstLevel" Association="Self.FK_tblSecondLevel_tblFirstLevel">
+            <End Role="tblFirstLevel" EntitySet="tblFirstLevel" />
+            <End Role="tblSecondLevel" EntitySet="tblSecondLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblThirdLevel_tblSecondLevel" Association="Self.FK_tblThirdLevel_tblSecondLevel">
+            <End Role="tblSecondLevel" EntitySet="tblSecondLevel" />
+            <End Role="tblThirdLevel" EntitySet="tblThirdLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetail_tblFourthLevelAccount" Association="Self.FK_tblVoucherDetail_tblFourthLevelAccount">
+            <End Role="tblVoucher" EntitySet="tblVoucher" />
+            <End Role="tblVoucherDetail" EntitySet="tblVoucherDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetail_tblFourthLevelAccount1" Association="Self.FK_tblVoucherDetail_tblFourthLevelAccount1">
+            <End Role="tblFourthLevelAccount" EntitySet="tblFourthLevelAccount" />
+            <End Role="tblVoucherDetail" EntitySet="tblVoucherDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetailTemp_tblFourthLevelAccount" Association="Self.FK_tblVoucherDetailTemp_tblFourthLevelAccount">
+            <End Role="tblFourthLevelAccount" EntitySet="tblFourthLevelAccount" />
+            <End Role="tblVoucherDetailTemp" EntitySet="tblVoucherDetailTemp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetailTemp_tblVoucherTemp" Association="Self.FK_tblVoucherDetailTemp_tblVoucherTemp">
+            <End Role="tblVoucherTemp" EntitySet="tblVoucherTemp" />
+            <End Role="tblVoucherDetailTemp" EntitySet="tblVoucherDetailTemp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbFinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblFirstLevel">
+          <Key>
+            <PropertyRef Name="firstLevelId" />
+          </Key>
+          <Property Name="firstLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstLevelAccount" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="firstLevelDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSecondLevels" Relationship="Self.FK_tblSecondLevel_tblFirstLevel" FromRole="tblFirstLevel" ToRole="tblSecondLevel" />
+        </EntityType>
+        <EntityType Name="tblFourthLevelAccount">
+          <Key>
+            <PropertyRef Name="accountId" />
+          </Key>
+          <Property Name="accountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accountCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="accountNo" Type="Int32" />
+          <Property Name="accountTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="thirdLevelId" Type="Int32" Nullable="false" />
+          <Property Name="mobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cityId" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="taxPercent" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="chequeNoStart" Type="Int32" />
+          <Property Name="chequeNoEnd" Type="Int32" />
+          <NavigationProperty Name="tblThirdLevel" Relationship="Self.FK_tblFourthLevelAccount_tblThirdLevel" FromRole="tblFourthLevelAccount" ToRole="tblThirdLevel" />
+          <NavigationProperty Name="tblVoucherDetails" Relationship="Self.FK_tblVoucherDetail_tblFourthLevelAccount1" FromRole="tblFourthLevelAccount" ToRole="tblVoucherDetail" />
+          <NavigationProperty Name="tblVoucherDetailTemps" Relationship="Self.FK_tblVoucherDetailTemp_tblFourthLevelAccount" FromRole="tblFourthLevelAccount" ToRole="tblVoucherDetailTemp" />
+        </EntityType>
+        <EntityType Name="tblSecondLevel">
+          <Key>
+            <PropertyRef Name="secondLevelId" />
+          </Key>
+          <Property Name="secondLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="secondLevelAccount" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstLevelId" Type="Int32" Nullable="false" />
+          <Property Name="secondLevelDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFirstLevel" Relationship="Self.FK_tblSecondLevel_tblFirstLevel" FromRole="tblSecondLevel" ToRole="tblFirstLevel" />
+          <NavigationProperty Name="tblThirdLevels" Relationship="Self.FK_tblThirdLevel_tblSecondLevel" FromRole="tblSecondLevel" ToRole="tblThirdLevel" />
+        </EntityType>
+        <EntityType Name="tblThirdLevel">
+          <Key>
+            <PropertyRef Name="thirdLevelId" />
+          </Key>
+          <Property Name="thirdLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="thirdLevelAccount" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="secondLevelId" Type="Int32" Nullable="false" />
+          <Property Name="thirdLevelDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFourthLevelAccounts" Relationship="Self.FK_tblFourthLevelAccount_tblThirdLevel" FromRole="tblThirdLevel" ToRole="tblFourthLevelAccount" />
+          <NavigationProperty Name="tblSecondLevel" Relationship="Self.FK_tblThirdLevel_tblSecondLevel" FromRole="tblThirdLevel" ToRole="tblSecondLevel" />
+        </EntityType>
+        <EntityType Name="tblVoucher">
+          <Key>
+            <PropertyRef Name="voucherId" />
+          </Key>
+          <Property Name="voucherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voucherNo" Type="Int32" />
+          <Property Name="voucherCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="voucherDate" Type="DateTime" Precision="3" />
+          <Property Name="voucherType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="paymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="dateAdded" Type="DateTime" Precision="3" />
+          <Property Name="userIdUpdate" Type="Int32" />
+          <Property Name="dateUpdated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblVoucherDetails" Relationship="Self.FK_tblVoucherDetail_tblFourthLevelAccount" FromRole="tblVoucher" ToRole="tblVoucherDetail" />
+        </EntityType>
+        <EntityType Name="tblVoucherDetail">
+          <Key>
+            <PropertyRef Name="voucherDetailId" />
+          </Key>
+          <Property Name="voucherDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voucherId" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="debitAmount" Type="Decimal" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="creditAmount" Type="Decimal" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="chequeNo" Type="Int32" />
+          <Property Name="chequeDate" Type="DateTime" Precision="3" />
+          <Property Name="accountId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFourthLevelAccount" Relationship="Self.FK_tblVoucherDetail_tblFourthLevelAccount1" FromRole="tblVoucherDetail" ToRole="tblFourthLevelAccount" />
+          <NavigationProperty Name="tblVoucher" Relationship="Self.FK_tblVoucherDetail_tblFourthLevelAccount" FromRole="tblVoucherDetail" ToRole="tblVoucher" />
+        </EntityType>
+        <EntityType Name="tblVoucherDetailTemp">
+          <Key>
+            <PropertyRef Name="voucherDetailId" />
+          </Key>
+          <Property Name="voucherDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voucherId" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="debitAmount" Type="Decimal" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="creditAmount" Type="Decimal" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="chequeNo" Type="Int32" />
+          <Property Name="chequeDate" Type="DateTime" Precision="3" />
+          <Property Name="accountId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFourthLevelAccount" Relationship="Self.FK_tblVoucherDetailTemp_tblFourthLevelAccount" FromRole="tblVoucherDetailTemp" ToRole="tblFourthLevelAccount" />
+          <NavigationProperty Name="tblVoucherTemp" Relationship="Self.FK_tblVoucherDetailTemp_tblVoucherTemp" FromRole="tblVoucherDetailTemp" ToRole="tblVoucherTemp" />
+        </EntityType>
+        <EntityType Name="tblVoucherTemp">
+          <Key>
+            <PropertyRef Name="voucherId" />
+          </Key>
+          <Property Name="voucherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voucherNo" Type="Int32" />
+          <Property Name="voucherCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="voucherDate" Type="DateTime" Precision="3" />
+          <Property Name="voucherType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="paymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="dateAdded" Type="DateTime" Precision="3" />
+          <Property Name="userIdUpdate" Type="Int32" />
+          <Property Name="dateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="isApprove" Type="Int32" />
+          <NavigationProperty Name="tblVoucherDetailTemps" Relationship="Self.FK_tblVoucherDetailTemp_tblVoucherTemp" FromRole="tblVoucherTemp" ToRole="tblVoucherDetailTemp" />
+        </EntityType>
+        <Association Name="FK_tblSecondLevel_tblFirstLevel">
+          <End Role="tblFirstLevel" Type="Self.tblFirstLevel" Multiplicity="1" />
+          <End Role="tblSecondLevel" Type="Self.tblSecondLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFirstLevel">
+              <PropertyRef Name="firstLevelId" />
+            </Principal>
+            <Dependent Role="tblSecondLevel">
+              <PropertyRef Name="firstLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFourthLevelAccount_tblThirdLevel">
+          <End Role="tblThirdLevel" Type="Self.tblThirdLevel" Multiplicity="1" />
+          <End Role="tblFourthLevelAccount" Type="Self.tblFourthLevelAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblThirdLevel">
+              <PropertyRef Name="thirdLevelId" />
+            </Principal>
+            <Dependent Role="tblFourthLevelAccount">
+              <PropertyRef Name="thirdLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetail_tblFourthLevelAccount1">
+          <End Role="tblFourthLevelAccount" Type="Self.tblFourthLevelAccount" Multiplicity="1" />
+          <End Role="tblVoucherDetail" Type="Self.tblVoucherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFourthLevelAccount">
+              <PropertyRef Name="accountId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetail">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetailTemp_tblFourthLevelAccount">
+          <End Role="tblFourthLevelAccount" Type="Self.tblFourthLevelAccount" Multiplicity="1" />
+          <End Role="tblVoucherDetailTemp" Type="Self.tblVoucherDetailTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFourthLevelAccount">
+              <PropertyRef Name="accountId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetailTemp">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblThirdLevel_tblSecondLevel">
+          <End Role="tblSecondLevel" Type="Self.tblSecondLevel" Multiplicity="1" />
+          <End Role="tblThirdLevel" Type="Self.tblThirdLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSecondLevel">
+              <PropertyRef Name="secondLevelId" />
+            </Principal>
+            <Dependent Role="tblThirdLevel">
+              <PropertyRef Name="secondLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetail_tblFourthLevelAccount">
+          <End Role="tblVoucher" Type="Self.tblVoucher" Multiplicity="1" />
+          <End Role="tblVoucherDetail" Type="Self.tblVoucherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVoucher">
+              <PropertyRef Name="voucherId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetail">
+              <PropertyRef Name="voucherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVoucherDetailTemp_tblVoucherTemp">
+          <End Role="tblVoucherTemp" Type="Self.tblVoucherTemp" Multiplicity="1" />
+          <End Role="tblVoucherDetailTemp" Type="Self.tblVoucherDetailTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVoucherTemp">
+              <PropertyRef Name="voucherId" />
+            </Principal>
+            <Dependent Role="tblVoucherDetailTemp">
+              <PropertyRef Name="voucherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbFinanceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblFirstLevels" EntityType="Self.tblFirstLevel" />
+          <EntitySet Name="tblFourthLevelAccounts" EntityType="Self.tblFourthLevelAccount" />
+          <EntitySet Name="tblSecondLevels" EntityType="Self.tblSecondLevel" />
+          <EntitySet Name="tblThirdLevels" EntityType="Self.tblThirdLevel" />
+          <EntitySet Name="tblVouchers" EntityType="Self.tblVoucher" />
+          <EntitySet Name="tblVoucherDetails" EntityType="Self.tblVoucherDetail" />
+          <EntitySet Name="tblVoucherDetailTemps" EntityType="Self.tblVoucherDetailTemp" />
+          <EntitySet Name="tblVoucherTemps" EntityType="Self.tblVoucherTemp" />
+          <AssociationSet Name="FK_tblSecondLevel_tblFirstLevel" Association="Self.FK_tblSecondLevel_tblFirstLevel">
+            <End Role="tblFirstLevel" EntitySet="tblFirstLevels" />
+            <End Role="tblSecondLevel" EntitySet="tblSecondLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFourthLevelAccount_tblThirdLevel" Association="Self.FK_tblFourthLevelAccount_tblThirdLevel">
+            <End Role="tblThirdLevel" EntitySet="tblThirdLevels" />
+            <End Role="tblFourthLevelAccount" EntitySet="tblFourthLevelAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetail_tblFourthLevelAccount1" Association="Self.FK_tblVoucherDetail_tblFourthLevelAccount1">
+            <End Role="tblFourthLevelAccount" EntitySet="tblFourthLevelAccounts" />
+            <End Role="tblVoucherDetail" EntitySet="tblVoucherDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetailTemp_tblFourthLevelAccount" Association="Self.FK_tblVoucherDetailTemp_tblFourthLevelAccount">
+            <End Role="tblFourthLevelAccount" EntitySet="tblFourthLevelAccounts" />
+            <End Role="tblVoucherDetailTemp" EntitySet="tblVoucherDetailTemps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblThirdLevel_tblSecondLevel" Association="Self.FK_tblThirdLevel_tblSecondLevel">
+            <End Role="tblSecondLevel" EntitySet="tblSecondLevels" />
+            <End Role="tblThirdLevel" EntitySet="tblThirdLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetail_tblFourthLevelAccount" Association="Self.FK_tblVoucherDetail_tblFourthLevelAccount">
+            <End Role="tblVoucher" EntitySet="tblVouchers" />
+            <End Role="tblVoucherDetail" EntitySet="tblVoucherDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVoucherDetailTemp_tblVoucherTemp" Association="Self.FK_tblVoucherDetailTemp_tblVoucherTemp">
+            <End Role="tblVoucherTemp" EntitySet="tblVoucherTemps" />
+            <End Role="tblVoucherDetailTemp" EntitySet="tblVoucherDetailTemps" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="dbFinanceModel.sysdiagram" />
+          <EntitySet Name="vSecondLevels" EntityType="dbFinanceModel.vSecondLevel" />
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="vSecondLevel">
+          <Key>
+            <PropertyRef Name="firstLevelId" />
+            <PropertyRef Name="secondLevelId" />
+            <PropertyRef Name="secondLevelAccount" />
+          </Key>
+          <Property Name="firstLevelId" Type="Int32" Nullable="false" />
+          <Property Name="firstLevelAccount" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="secondLevelId" Type="Int32" Nullable="false" />
+          <Property Name="secondLevelAccount" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="secondLevelDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbFinanceModelStoreContainer" CdmEntityContainer="dbFinanceEntities">
+          <EntitySetMapping Name="tblFirstLevels">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblFirstLevel">
+              <MappingFragment StoreEntitySet="tblFirstLevel">
+                <ScalarProperty Name="firstLevelId" ColumnName="firstLevelId" />
+                <ScalarProperty Name="firstLevelAccount" ColumnName="firstLevelAccount" />
+                <ScalarProperty Name="firstLevelDesc" ColumnName="firstLevelDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFourthLevelAccounts">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblFourthLevelAccount">
+              <MappingFragment StoreEntitySet="tblFourthLevelAccount">
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+                <ScalarProperty Name="accountCode" ColumnName="accountCode" />
+                <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+                <ScalarProperty Name="accountTitle" ColumnName="accountTitle" />
+                <ScalarProperty Name="thirdLevelId" ColumnName="thirdLevelId" />
+                <ScalarProperty Name="mobileNo" ColumnName="mobileNo" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cityId" ColumnName="cityId" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="taxPercent" ColumnName="taxPercent" />
+                <ScalarProperty Name="chequeNoStart" ColumnName="chequeNoStart" />
+                <ScalarProperty Name="chequeNoEnd" ColumnName="chequeNoEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSecondLevels">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblSecondLevel">
+              <MappingFragment StoreEntitySet="tblSecondLevel">
+                <ScalarProperty Name="secondLevelId" ColumnName="secondLevelId" />
+                <ScalarProperty Name="secondLevelAccount" ColumnName="secondLevelAccount" />
+                <ScalarProperty Name="firstLevelId" ColumnName="firstLevelId" />
+                <ScalarProperty Name="secondLevelDesc" ColumnName="secondLevelDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblThirdLevels">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblThirdLevel">
+              <MappingFragment StoreEntitySet="tblThirdLevel">
+                <ScalarProperty Name="thirdLevelId" ColumnName="thirdLevelId" />
+                <ScalarProperty Name="thirdLevelAccount" ColumnName="thirdLevelAccount" />
+                <ScalarProperty Name="secondLevelId" ColumnName="secondLevelId" />
+                <ScalarProperty Name="thirdLevelDesc" ColumnName="thirdLevelDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVouchers">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblVoucher">
+              <MappingFragment StoreEntitySet="tblVoucher">
+                <ScalarProperty Name="voucherId" ColumnName="voucherId" />
+                <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+                <ScalarProperty Name="voucherCode" ColumnName="voucherCode" />
+                <ScalarProperty Name="voucherDate" ColumnName="voucherDate" />
+                <ScalarProperty Name="voucherType" ColumnName="voucherType" />
+                <ScalarProperty Name="paymentMode" ColumnName="paymentMode" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="userIdUpdate" ColumnName="userIdUpdate" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVoucherDetails">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblVoucherDetail">
+              <MappingFragment StoreEntitySet="tblVoucherDetail">
+                <ScalarProperty Name="voucherDetailId" ColumnName="voucherDetailId" />
+                <ScalarProperty Name="voucherId" ColumnName="voucherId" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="debitAmount" ColumnName="debitAmount" />
+                <ScalarProperty Name="creditAmount" ColumnName="creditAmount" />
+                <ScalarProperty Name="chequeNo" ColumnName="chequeNo" />
+                <ScalarProperty Name="chequeDate" ColumnName="chequeDate" />
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVoucherDetailTemps">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblVoucherDetailTemp">
+              <MappingFragment StoreEntitySet="tblVoucherDetailTemp">
+                <ScalarProperty Name="voucherDetailId" ColumnName="voucherDetailId" />
+                <ScalarProperty Name="voucherId" ColumnName="voucherId" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="debitAmount" ColumnName="debitAmount" />
+                <ScalarProperty Name="creditAmount" ColumnName="creditAmount" />
+                <ScalarProperty Name="chequeNo" ColumnName="chequeNo" />
+                <ScalarProperty Name="chequeDate" ColumnName="chequeDate" />
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVoucherTemps">
+            <EntityTypeMapping TypeName="dbFinanceModel.tblVoucherTemp">
+              <MappingFragment StoreEntitySet="tblVoucherTemp">
+                <ScalarProperty Name="voucherId" ColumnName="voucherId" />
+                <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+                <ScalarProperty Name="voucherCode" ColumnName="voucherCode" />
+                <ScalarProperty Name="voucherDate" ColumnName="voucherDate" />
+                <ScalarProperty Name="voucherType" ColumnName="voucherType" />
+                <ScalarProperty Name="paymentMode" ColumnName="paymentMode" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="userIdUpdate" ColumnName="userIdUpdate" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="isApprove" ColumnName="isApprove" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbFinanceModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vSecondLevels">
+            <EntityTypeMapping TypeName="dbFinanceModel.vSecondLevel">
+              <MappingFragment StoreEntitySet="vSecondLevel">
+                <ScalarProperty Name="secondLevelDesc" ColumnName="secondLevelDesc" />
+                <ScalarProperty Name="secondLevelAccount" ColumnName="secondLevelAccount" />
+                <ScalarProperty Name="secondLevelId" ColumnName="secondLevelId" />
+                <ScalarProperty Name="firstLevelAccount" ColumnName="firstLevelAccount" />
+                <ScalarProperty Name="firstLevelId" ColumnName="firstLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

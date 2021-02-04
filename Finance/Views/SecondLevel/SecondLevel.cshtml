@@ -1,0 +1,127 @@
+﻿@model Finance.Models.vSecondLevel
+
+
+@{
+    ViewBag.Title = "Second Level Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("SecondLevel", "SecondLevel", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Second Level Account</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.secondLevelId)
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.firstLevelId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-6">
+            @Html.DropDownListFor(model => model.firstLevelId, ViewBag.deptlist as SelectList, "--Select First Level--", new { @class = "form-control" })
+
+
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.secondLevelAccount, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.secondLevelAccount, new { htmlAttributes = new { @class = "form-control",   @placeholder = "Second Level " } })
+            @Html.ValidationMessageFor(model => model.secondLevelAccount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.secondLevelDesc, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.secondLevelDesc, new { htmlAttributes = new { @class = "form-control",@placeholder = "Description " } })
+            @Html.ValidationMessageFor(model => model.secondLevelDesc, "", new { @class = "text-danger" })
+
+
+        </div>
+    </div>
+    <div class="form-group col-md-3">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label class=" alert-danger">@ViewBag.DuplicateMsg</label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label class=" alert-success">@ViewBag.SuccessMsg</label>
+        </div>
+    </div>
+
+
+    <table class="table table-striped" style=" text-align:left;">
+        <thead>
+            <tr>
+                <th style="width:30%;">
+                    SECOND ACCOUNT
+                </th>
+                <th style="width:30%;">
+                    DESCRIPTION
+                </th>
+
+                <th style="width:20%;">
+                    FIRST LEVEL
+                </th>
+                <th style="width:10%;">
+                    ACTION
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@model IEnumerable<MvcWebApp.Models.tblFirstLevel>*@
+            @foreach (var item in Model.SecLevelDetails)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.secondLevelAccount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.secondLevelDesc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.firstLevelAccount)
+
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "SecondLevelEdit", new { id = item.secondLevelId }, new { @class = " btn btn-warning btn-mini" }) |
+
+                        @Html.ActionLink("Delete", "SecondLevelDelete", new { id = item.secondLevelId }, new { @class = " btn btn-danger btn-mini" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+    }
+
+
+
+  <script>
+ 
+            $.get("/SecondLevel/GetProgram", {  }, function (data) {
+                $.each(data, function (index, row) {
+                    $("#ProgramID").append("<option value='" + row.firstLevelId + "'>" + row.firstLevelAccount + "</option>")
+                });
+            });
+        })
+    });
+
+</script>
+ 

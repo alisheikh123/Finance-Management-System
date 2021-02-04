@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5eab1d2da9204962923b30ce2d286104" Name="Diagram1">
+        <EntityTypeShape EntityType="dbFinanceModel.tblFirstLevel" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblFourthLevelAccount" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblSecondLevel" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblThirdLevel" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblVoucher" Width="1.5" PointX="7.5" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblVoucherDetail" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblVoucherDetailTemp" Width="1.5" PointX="12.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbFinanceModel.tblVoucherTemp" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblSecondLevel_tblFirstLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblFourthLevelAccount_tblThirdLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblVoucherDetail_tblFourthLevelAccount1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblVoucherDetailTemp_tblFourthLevelAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblThirdLevel_tblSecondLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblVoucherDetail_tblFourthLevelAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="dbFinanceModel.FK_tblVoucherDetailTemp_tblVoucherTemp" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbFinanceModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbFinanceModel.vSecondLevel" Width="1.5" PointX="2.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
